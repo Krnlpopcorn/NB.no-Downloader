@@ -28,7 +28,7 @@ class Book:
     def download_page(self, page_nr, retry):
 
         # Get the partial images and stich the image together
-        page = Image.new("RGB", tuple(self.img_size), "white") # Any unused space in the image will be white
+        page = Image.new("RGB", tuple(self.img_size), "white")
         x_offset = 0
         y_offset = 0
         for row in range(self.rows):
@@ -159,9 +159,22 @@ class Book:
 
 def main():
 # Request book_id from console arguments
-  book_id = sys.argv[1]
-  b = Book(book_id)
-  b.download_book()
+    book_list = []
+    
+    f = open("book_id.txt", "r")
+    for x in f:
+        book_list.append(x.rstrip('\n'))
+        print(x)
+    f.close()
+    i = 0
+    while i < len(book_list):
+        book_id = book_list[i]
+        b = Book(book_id)
+        b.download_book()
+        i += 1
+   # book_id = sys.argv[1]
+   # b = Book(book_id)
+   # b.download_book()
 
 if __name__ == "__main__":
     main()
